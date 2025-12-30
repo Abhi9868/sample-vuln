@@ -2,9 +2,9 @@ import os
 import hashlib
 import pickle
 import random
+import requests
 import subprocess
 import yaml
-import requests
 
 
 # ❌ 1. Hard-coded secret
