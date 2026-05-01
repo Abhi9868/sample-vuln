@@ -58,6 +58,20 @@ def yaml_load():
     loaded = yaml.load(data, Loader=yaml.Loader)  # vulnerable usage
     return {"parsed": str(loaded)}
 
+# --- VULN 1: Hard-coded secret ---
+API_KEY = "SUPER_SECRET_API_KEY_12345"  # Snyk should flag this
+
+
+# --- VULN 2: SQL Injection ---
+def get_user_by_name(username):
+    conn = sqlite3.connect("test.db")
+    cursor = conn.cursor()
+    # Intentionally vulnerable query
+    query = f"SELECT * FROM users WHERE username = '{username}'"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    return result
 
 if __name__ == "__main__":
     # Simple DB init to avoid runtime errors
