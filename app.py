@@ -14,7 +14,15 @@ def user():
     data = get_user_by_name(username)
     return {"data": str(data)}
 
-
+# --- VULN 2: SQL Injection ---
+def get_user_by_name(username):
+    conn = sqlite3.connect("test.db")
+    cursor = conn.cursor()
+    # Intentionally vulnerable query
+    query = f"SELECT * FROM users WHERE username = '{username}'"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
 # --- VULN 3: Command Injection ---
 @app.route("/ping")
 def ping():
