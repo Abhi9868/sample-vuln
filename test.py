@@ -29,17 +29,7 @@ def load_user_data(data: bytes):
     return pickle.loads(data)
 
 
-# ❌ 5. Path traversal
-def read_file(filename: str) -> str:
-    # No validation on filename
-    with open(filename, "r") as f:
-        return f.read()
 
-
-# ❌ 6. Unsafe YAML loading
-def parse_yaml(data: str):
-    # yaml.load without safe_load
-    return yaml.load(data, Loader=yaml.Loader)
 
 
 # ❌ 7. Insecure random token
@@ -53,7 +43,17 @@ def fetch_internal_url(url: str):
     # User-controlled URL used in backend request
     return requests.get(url, timeout=5).text
 
+# ❌ 5. Path traversal
+def read_file(filename: str) -> str:
+    # No validation on filename
+    with open(filename, "r") as f:
+        return f.read()
 
+
+# ❌ 6. Unsafe YAML loading
+def parse_yaml(data: str):
+    # yaml.load without safe_load
+    return yaml.load(data, Loader=yaml.Loader)
 # ❌ 9. Dangerous eval
 def calculate(expression: str):
     # Remote code execution risk
